@@ -13,19 +13,19 @@ def http_client():
 
 
 def test_sync_get():
-    client = http_client()
-    response = client.get("/posts/1")
-    assert response is not None
-    userId = response.get("userId", None)
-    assert userId == 1
+    with http_client() as client:
+        response = client.get("/posts/1")
+        assert response is not None
+        userId = response.get("userId", None)
+        assert userId == 1
 
 
 def test_sync_post():
-    client = http_client()
-    response = client.post("posts", json={"title": "foo", "body": "bar", "userId": 1})
-    assert response is not None
-    userId = response.get("userId", None)
-    assert userId == 1
+    with http_client() as client:
+        response = client.post("posts", json={"title": "foo", "body": "bar", "userId": 1})
+        assert response is not None
+        userId = response.get("userId", None)
+        assert userId == 1
 
 
 def async_http_client():
@@ -40,19 +40,19 @@ def async_http_client():
 
 @pytest.mark.asyncio
 async def test_async_get():
-    aclient = async_http_client()
-    response = await aclient.get("/posts/1")
-    assert response is not None
-    userId = response.get("userId", None)
-    assert userId == 1
+    async with async_http_client() as aclient:
+        response = await aclient.aget("/posts/1")
+        assert response is not None
+        userId = response.get("userId", None)
+        assert userId == 1
 
 
 @pytest.mark.asyncio
 async def test_async_post():
-    aclient = async_http_client()
-    response = await aclient.post(
-        "posts", json={"title": "foo", "body": "bar", "userId": 1}
-    )
-    assert response is not None
-    userId = response.get("userId", None)
-    assert userId == 1
+    async with async_http_client() as aclient:
+        response = await aclient.apost(
+            "posts", json={"title": "foo", "body": "bar", "userId": 1}
+        )
+        assert response is not None
+        userId = response.get("userId", None)
+        assert userId == 1

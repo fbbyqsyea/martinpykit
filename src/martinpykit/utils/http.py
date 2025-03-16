@@ -155,6 +155,12 @@ class HttpClient:
         """关闭会话"""
         self.client.close()
 
+    def __enter__(self):
+        return self
+    
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        self.close()
+
 
 # 异步请求客户端
 class AsyncHttpClient:
@@ -189,7 +195,7 @@ class AsyncHttpClient:
             timeout=timeout,
         )
 
-    async def request(
+    async def arequest(
         self,
         method: str,
         url: str,
@@ -232,13 +238,13 @@ class AsyncHttpClient:
             return response.json()
         return response.text()
 
-    async def get(
+    async def aget(
         self, url: str, params: Optional[Dict] = None, stream: Optional[bool] = False
     ):
         """异步GET请求封装"""
-        return await self.request("GET", url, params=params, stream=stream)
+        return await self.arequest("GET", url, params=params, stream=stream)
 
-    async def post(
+    async def apost(
         self,
         url: str,
         params: Optional[Dict] = None,
@@ -247,10 +253,18 @@ class AsyncHttpClient:
         stream: Optional[bool] = False,
     ):
         """异步POST请求封装"""
-        return await self.request(
+        return await self.arequest(
             "POST", url, params=params, data=data, json=json, stream=stream
         )
 
-    async def close(self):
+    async def aclose(self):
         """关闭会话"""
         await self.client.aclose()
+
+    async def __aenter__(self):
+        """异步上下文管理器"""
+        return self
+    
+    async def __aexit__(self, exc_type, exc_val, exc_tb):
+        """异步上下文管理器退出时关闭会话"""
+        await self.aclose()

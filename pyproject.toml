@@ -1,6 +1,6 @@
 [project]
 name = "martinpykit"
-version = "0.1.0"
+version = "0.1.1"
 description = "A powerful Python utilities package"
 authors = [{ name = "fbbyqsyea", email = "fbbyqsyea@163.com" }]
 license = { file = "LICENSE" }
