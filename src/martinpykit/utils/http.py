@@ -29,7 +29,7 @@ from typing import Dict, Optional, Union
 # 同步请求客户端
 class HttpClient:
     """同步 HTTP 客户端
-    
+
     封装常用 HTTP 操作，支持自动重试和智能响应解析。
 
     Attributes:
@@ -157,7 +157,7 @@ class HttpClient:
 
     def __enter__(self):
         return self
-    
+
     def __exit__(self, exc_type, exc_val, exc_tb):
         self.close()
 
@@ -264,7 +264,7 @@ class AsyncHttpClient:
     async def __aenter__(self):
         """异步上下文管理器"""
         return self
-    
+
     async def __aexit__(self, exc_type, exc_val, exc_tb):
         """异步上下文管理器退出时关闭会话"""
         await self.aclose()

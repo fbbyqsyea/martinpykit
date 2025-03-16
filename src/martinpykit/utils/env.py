@@ -1,6 +1,7 @@
 import os
 from dotenv import load_dotenv
 
+
 class EnvConfig:
     """动态读取环境变量配置"""
 

@@ -22,7 +22,9 @@ def test_sync_get():
 
 def test_sync_post():
     with http_client() as client:
-        response = client.post("posts", json={"title": "foo", "body": "bar", "userId": 1})
+        response = client.post(
+            "posts", json={"title": "foo", "body": "bar", "userId": 1}
+        )
         assert response is not None
         userId = response.get("userId", None)
         assert userId == 1

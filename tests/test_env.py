@@ -1,9 +1,10 @@
-import pytest # type: ignore
+import pytest  # type: ignore
 from martinpykit.utils import EnvConfig
 
 
 def get_env():
     return EnvConfig()
+
 
 def test_env():
     env = get_env()
